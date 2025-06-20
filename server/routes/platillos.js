@@ -14,4 +14,39 @@ router.get("/", async (req, res) => {
     }
 });
 
+// --- NUEVO CÓDIGO ---
+// Ruta para CREAR un nuevo platillo
+// POST /api/platillos
+router.post("/", async (req, res) => {
+    // El middleware express.json() nos permite acceder a los datos enviados en req.body
+    const { nombre, descripcion, precio, imagen } = req.body;
+
+    // Validación simple
+    if (!nombre || !descripcion || !precio || !imagen) {
+        return res
+        .status(400)
+        .json({ message: "Por favor, incluye todos los campos." });
+    }
+
+    try {
+        // Creamos una nueva instancia del modelo Platillo
+        const nuevoPlatillo = new Platillo({
+        nombre,
+        descripcion,
+        precio,
+        imagen,
+        });
+
+        // Guardamos el nuevo platillo en la base de datos
+        const platilloGuardado = await nuevoPlatillo.save();
+
+        // Respondemos con el platillo recién creado y un estado 201 (Created)
+        res.status(201).json(platilloGuardado);
+    } catch (error) {
+        res
+        .status(500)
+        .json({ message: "Error en el servidor al crear el platillo." });
+    }
+});
+// --- FIN DEL NUEVO CÓDIGO ---
 module.exports = router;
