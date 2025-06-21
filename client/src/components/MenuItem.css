@@ -1,0 +1,42 @@
+/* src/components/MenuItem.css */
+
+.menu-item-image {
+  width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
+  height: 200px; /* Le damos una altura fija */
+  object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+  border-radius: 8px 8px 0 0; /* Redondea solo las esquinas superiores */
+}
+
+.menu-item-content {
+  padding: 15px; /* Añade un poco de espacio interno al texto */
+}
+
+/* Ajuste en el contenedor principal de la tarjeta */
+.menu-item {
+    padding: 0; /* Quitamos el padding que teníamos en App.css */
+    display: flex;
+    flex-direction: column;
+}
+.admin-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+.admin-buttons button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+.edit-btn {
+  background-color: #ffc107;
+  color: #212529;
+  text-decoration: none;
+  border-radius: .5rem;
+  padding: 2px 8px;
+}
