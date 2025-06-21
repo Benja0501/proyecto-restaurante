@@ -73,5 +73,37 @@ router.delete('/:id', auth, async (req, res) => {
     }
 });
 // --- FIN DEL NUEVO CÓDIGO ---
+// --- NUEVO CÓDIGO ---
+// Ruta para OBTENER UN SOLO platillo por su ID
+// GET /api/platillos/:id
+router.get('/:id', async (req, res) => {
+    try {
+        const platillo = await Platillo.findById(req.params.id);
+        if (!platillo) {
+        return res.status(404).json({ message: 'Platillo no encontrado.' });
+        }
+        res.json(platillo);
+    } catch (error) {
+        res.status(500).send('Error en el servidor.');
+    }
+});
+// Ruta para ACTUALIZAR un platillo por su ID
+// PUT /api/platillos/:id
+router.put('/:id', auth, async (req, res) => {
+    try {
+        const platilloActualizado = await Platillo.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true } // {new: true} hace que nos devuelva el documento actualizado
+        );
+        if (!platilloActualizado) {
+        return res.status(404).json({ message: 'Platillo no encontrado.' });
+        }
+        res.json(platilloActualizado);
+    } catch (error) {
+        res.status(500).send('Error en el servidor.');
+    }
+});
+// --- FIN DEL NUEVO CÓDIGO ---
 
 module.exports = router;
