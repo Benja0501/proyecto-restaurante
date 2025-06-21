@@ -14,6 +14,8 @@ router.get("/", async (req, res) => {
     }
 });
 
+//Guardían
+const auth = require('../middleware/auth');
 // --- NUEVO CÓDIGO ---
 // Ruta para CREAR un nuevo platillo
 // POST /api/platillos
@@ -49,4 +51,27 @@ router.post("/", async (req, res) => {
     }
 });
 // --- FIN DEL NUEVO CÓDIGO ---
+// --- NUEVO CÓDIGO ---
+// Ruta para ELIMINAR un platillo por su ID
+// DELETE /api/platillos/:id
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        // Buscamos el platillo por el ID que viene en la URL (req.params.id)
+        const platillo = await Platillo.findById(req.params.id);
+
+        if (!platillo) {
+        return res.status(404).json({ message: 'Platillo no encontrado.' });
+        }
+
+        // Usamos el método remove() sobre el documento encontrado
+        await platillo.remove();
+
+        res.json({ message: 'Platillo eliminado exitosamente.' });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Error en el servidor.');
+    }
+});
+// --- FIN DEL NUEVO CÓDIGO ---
+
 module.exports = router;

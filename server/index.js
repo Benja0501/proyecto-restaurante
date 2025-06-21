@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 
 // Rutas de la API
 app.use('/api/platillos', require('./routes/platillos'));
+app.use('/api/users', require('./routes/users'));
 
 // 6. Iniciar el servidor
 app.listen(PORT, () => {
